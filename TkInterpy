@@ -1,0 +1,30 @@
+import tkinter as tk
+from tkinter import scrolledtext
+
+def start_process():
+    # Placeholder for starting the process (Step 2)
+    pass
+
+# Setup the main window
+root = tk.Tk()
+root.title("GDrive Downloader and Verifier")
+root.geometry("600x400")
+
+# Start Process Button
+start_button = tk.Button(root, text="Start Process", command=start_process)
+start_button.pack(pady=20)
+
+# Text area for output
+output_area = scrolledtext.ScrolledText(root, width=70, height=20)
+output_area.pack(pady=10)
+
+root.mainloop()
+
+def start_process():
+    drive = login()  # Login to Google Drive
+    folder_id = 'your_folder_id_here'
+    file_list = list_files(drive, folder_id)  # List files (adjust the list_files function accordingly)
+    for file in file_list:
+        download_file(drive, file['id'], file['title'])  # Download file
+        result = verify_checksum(file['title'], 'expected_checksum_here')  # Verify checksum
+        output_area.insert(tk.END, f"{file['title']}: {'Good' if result else 'Bad'}\n")  # Display result
